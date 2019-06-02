@@ -24,19 +24,18 @@
           
           <li class="layui-nav-item" lay-unselect="">
             <a href="javascript:;">
-              <cite>管理员</cite>
+              <cite>{$username}</cite>
             <span class="layui-nav-more"></span></a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
-              <dd class="layui-this"><a lay-href="">基本资料</a></dd>
-              <dd class=""><a lay-href="">修改密码</a></dd>
+              
+              <dd class="layui-this"><a lay-href="">修改密码</a></dd>
               <hr>
-              <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
+              <dd layadmin-event="logout" style="text-align: center;"><a href="/login/login/index">退出</a></dd>
             </dl>
           </li>
           </ul>
 		
 	</div>
-	
 	
 	<div class="layui-side layui-bg-black">
 		<div class="layui-logo" lay-href="home/console.html">
@@ -44,7 +43,7 @@
 		</div>
 		<ul class="layui-nav layui-nav-tree" lay-filter="test">
 			<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-			<li class="layui-nav-item"><a href="">留言管理</a></li>
+			<li class="layui-nav-item"><a href="/">留言管理</a></li>
 			  <li class="layui-nav-item">
 				<a href="javascript:;">系统设置</a>
 				<dl class="layui-nav-child">
@@ -54,6 +53,14 @@
 				</dl>
 			  </li>
 			</ul>
+	</div>
+	<div class="layui-body">
+		<div class="layadmin-tabsbody-item">
+			<iframe class="laymy-iframe" frameborder='0' src="index/formfields/index"></iframe>
+
+		</div>
+	
+	
 	</div>
 	</div>
 	 <script src="/static/layui/layui.all.js" ></script>
