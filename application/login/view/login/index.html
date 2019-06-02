@@ -1,0 +1,78 @@
+<html><head>
+
+    <meta charset="utf-8">
+
+    <title>留言管理系统</title>
+
+    <meta name="renderer" content="webkit">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="icon" href="/favicon.ico" type="img/x-ico" />
+
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+	<link rel="stylesheet" href="/static/css/login.css">
+
+</head>
+<body class="">
+	
+	<div class="layui-container laymy-login">
+		<div class="layui-row ">
+			<div class="layui-col-lg6">
+				<p>留言管理系统</p>
+			</div>
+			<div class="layui-col-lg3 layui-col-md-offset2 ">
+				<div class="laymy-login-font">密码登录</div>
+
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<label class="layui-icon layui-form-label layui-icon-username laymy-icon laymy-login-blue"></label>
+						   <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-icon layui-form-label layui-icon-password laymy-icon laymy-login-blue"></label>
+						<input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-item">
+						<button  class="layui-btn" lay-submit lay-filter="lay-submit-login" >登录</button>
+					</div>
+					
+				</form>
+			
+			</div>
+		</div>
+	</div>
+
+	 <script src="/static/layui/layui.all.js" ></script>
+	 <script>
+		var form = layui.form, $=layui.$;
+		
+		form.on('submit(lay-submit-login)',function(data){
+			$.post("login",data.field,function(e){
+				
+				var obj = JSON.parse(e);
+				if(obj['type']==0)
+				{
+					 layer.alert(obj.msg,function(index){
+
+						window.location.reload();
+
+					});
+				}else{
+				
+					layer.msg(obj.msg, function(){
+
+                    window.location.href="/";
+
+					});
+				}
+				
+			},'json');
+		
+			return false;
+		});
+	 </script>
+</body>
+</html>
