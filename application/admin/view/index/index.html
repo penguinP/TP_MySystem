@@ -41,13 +41,13 @@
 		<div class="layui-logo" lay-href="">
 				<span>留言管理系统</span>
 		</div>
-		<ul class="layui-nav layui-nav-tree" lay-filter="test">
+		<ul class="layui-nav layui-nav-tree" lay-filter="">
 			<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
-			<li class="layui-nav-item"><a class="laymy-menu" href="javascript:void(0);"  data-href="index/formfields/index">留言管理</a></li>
+			<li class="layui-nav-item"><a class="laymy-menu" href="javascript:void(0);"  data-href="/admin/formfields/index">留言管理</a></li>
 			  <li class="layui-nav-item">
 				<a href="javascript:;">系统设置</a>
 				<dl class="layui-nav-child">
-				  <dd><a href="javascript:;" class="laymy-menu" >选项1</a></dd>
+				  <dd><a href="javascript:;" class="laymy-menu" data-href="/admin/sys_mgr/usermgr">用户管理</a></dd>
 				  <dd><a href="javascript:;" class="laymy-menu" >选项2</a></dd>
 				  <dd><a href="">跳转</a></dd>
 				</dl>
@@ -56,7 +56,7 @@
 	</div>
 	<div class="layui-body">
 		<div class="layadmin-tabsbody-item">
-			<iframe class="laymy-iframe" frameborder='0' src="index/formfields/index"></iframe>
+			<iframe class="laymy-iframe" frameborder='0' src="/admin/formfields/index"></iframe>
 
 		</div>
 	
