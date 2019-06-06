@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 本机
  Source Server Type    : MySQL
  Source Server Version : 50714
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50714
  File Encoding         : 65001
 
- Date: 04/06/2019 20:45:29
+ Date: 06/06/2019 23:23:33
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `db_admin_user`  (
 -- ----------------------------
 -- Records of db_admin_user
 -- ----------------------------
-INSERT INTO `db_admin_user` VALUES (0, 'admin', 'd6bf4bb9a66419380a7e8b034270d381', '超级管理员', '127.0.0.1', 1559636488, '');
+INSERT INTO `db_admin_user` VALUES (0, 'admin', 'd6bf4bb9a66419380a7e8b034270d381', '超级管理员', '127.0.0.1', 1559830565, '');
 
 -- ----------------------------
 -- Table structure for db_customer
@@ -48,14 +48,16 @@ CREATE TABLE `db_customer`  (
   `customer_wx` varchar(24) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '客户微信或qq',
   `customer_ip` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '客户访问ip',
   `customer_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '客户访问url',
-  `customer_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户留言',
-  `admin_id` int(12) NOT NULL COMMENT '所属用户Id',
+  `customer_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户留言内容',
+  `user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '所属用户Id',
+  `sub_time` int(11) NOT NULL COMMENT '提交时间',
+  `customer_state` tinyint(12) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of db_customer
 -- ----------------------------
-INSERT INTO `db_customer` VALUES (1, '王测试', '18588888888', 'wx_fdfin', '', '', '', 1);
+INSERT INTO `db_customer` VALUES (1, '王测试', '18888888888', 'jfidf_wx', '192.168.1.1', 'www.baidu.com', '你好', '12323', 1559824125, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

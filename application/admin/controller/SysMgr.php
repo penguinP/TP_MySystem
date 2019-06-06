@@ -18,4 +18,11 @@ class SysMgr	extends Common
    
         return $this->fetch();
     }
+
+    public function getuser()
+    {
+    	
+   
+        return json();
+    }
 }

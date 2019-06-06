@@ -19,18 +19,29 @@
     </head>
     <body>
 		
-		<table id="formfields_table" lay-filter="lay-formfields"></table>
+		<table id="formfields_table" lay-filter="lay_formfields"></table>
         
    
 	 <script src="/static/layui/layui.all.js" ></script>
+
+	 <script type="text/html" id="toolbar">
+		<div class="layui-btn-container">
+		 
+		  <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+		  
+		</div>
+	  </script>
+
 	 <script>
 	 
-		var table = layui.table;
+		var table = layui.table,layer = layui.layer,$=layui.$;
 		
 		var form_table = table.render({
 		
 			elem:'#formfields_table',
+			
 			height:"full-40",
+			
 			url:'/admin/formfields/getform',
 			method:'post',
 			page:true,
@@ -40,12 +51,39 @@
 				{field:'phone',title:'电话',minWidth:140,width:140,sort:true},
 				{field:'wx',title:'微信/QQ',width:120},
 				{field:'ip',title:'IP地址',width:100},
-				{field:'url',title:'访问url',width:80}
+				{field:'url',title:'访问url',width:80},
+				{field:'',toolbar:'#toolbar'}
 			]]
 		
 		});
 		
 		console.log(form_table);
+
+		table.on('tool(lay_formfields)',function(obj){
+			var data = obj.data;
+			var event = obj.event;
+			var tr = obj.tr;
+			switch(event)
+			{
+				case 'delete':
+				{
+					layer.confirm('是否确定删除？',{btn:['确定','取消']},function(){
+						$.post('/admin/formfields/delform',{id:data.id},function(msg){
+							layer.msg(msg.msg,function(){
+
+								if(msg.code == 0)
+								{
+									tr.remove();
+								}
+							})
+						},'json');
+
+					});
+				}
+			}
+			console.log(obj);
+
+		});
 	 </script>
 	 </body>
 </html>

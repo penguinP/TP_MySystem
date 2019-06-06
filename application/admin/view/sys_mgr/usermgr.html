@@ -2,7 +2,7 @@
 
     <meta charset="utf-8">
 
-    <title>留言管理系统</title>
+    <title>用户管理</title>
 
     <meta name="renderer" content="webkit">
 
@@ -17,9 +17,71 @@
 
 </head>
 <body>
-	123
+
+    <table id="usermgr_table" lay-filter="lay_usermgr"></table>
 	 <script src="/static/layui/layui.all.js" ></script>
-	 
+     
+     <script type="text/html" id="toolbar">
+		<div class="layui-btn-container">
+          <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+		  <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+		  
+		</div>
+      </script>
+      <script type="text/html" id="head_toolbar">
+		<div class="layui-btn-container">
+          <button class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+
+		</div>
+      </script>
+      
+     <script>
+         var table = layui.table,layer = layui.layer;
+
+         var m_table = table.render({
+             elem:'#usermgr_table',
+             height:"full-40",
+             toolbar:'#head_toolbar',
+             defaultToolbar:['filter'],
+			url:'/admin/sys_mgr/getuser',
+			method:'post',
+			page:true,
+			cols:[[
+				{field:'id',title:'ID',hide:true},
+				{field:'name',title:'姓名',minWidth:80,width:'10%'},
+				{field:'explan',title:'说明',minWidth:200,width:'20%'},
+				{field:'ip',title:'最后登录IP',width:'20%'},
+				{field:'login_time',title:'最后登录时间',width:'20%'},
+				{field:'key',title:'用户唯一密钥',width:'20%'},
+                {field:'',toolbar:'#toolbar'}
+			]]
+         });
+         
+         table.on('toolbar(lay_usermgr)',function(obj){
+
+             switch(obj.event)
+             {
+                 case "add":
+                 {
+                 console.log("add");
+                
+                    layer.open({
+                        type:2,
+                        title:"添加",
+                        area:['700px','400px'],
+                        content:''
+                    });    
+                 }
+                 break;
+                 case "update":
+                 console.log("update");
+                 break;
+                 case "delete":
+                 console.log("delete");
+                 break;
+             };
+         });
+     </script>
 	 
 </body>
 </html>

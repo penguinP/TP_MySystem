@@ -30,7 +30,7 @@
               
               <dd class="layui-this"><a lay-href="">修改密码</a></dd>
               <hr>
-              <dd layadmin-event="logout" style="text-align: center;"><a href="/login/login/index">退出</a></dd>
+              <dd layadmin-event="logout" style="text-align: center;"><a href="/login/login/quit">退出</a></dd>
             </dl>
           </li>
           </ul>
@@ -47,9 +47,9 @@
 			  <li class="layui-nav-item">
 				<a href="javascript:;">系统设置</a>
 				<dl class="layui-nav-child">
-				  <dd><a href="javascript:;" class="laymy-menu" data-href="/admin/sys_mgr/usermgr">用户管理</a></dd>
+				  <dd><a href="javascript:;"  class="laymy-menu amdin" data-href="/admin/sys_mgr/usermgr">用户管理</a></dd>
 				  <dd><a href="javascript:;" class="laymy-menu" >选项2</a></dd>
-				  <dd><a href="">跳转</a></dd>
+				  <dd><a href="/login/login/quit">退出</a></dd>
 				</dl>
 			  </li>
 			</ul>
@@ -76,6 +76,12 @@
 			}
 			console.log(iframesrc);
 		});
+		
+			if("{$showorhide}" == "hide")
+				{
+					$('#admin').hide();
+				}
+		console.log("{$showorhide}");
 	 </script>
 </body>
 </html>

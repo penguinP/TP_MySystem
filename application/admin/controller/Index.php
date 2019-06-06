@@ -6,8 +6,15 @@ class Index	extends Common
 {
     public function index()
     {
-    	$this->assign('username',session('user')['user_name']);
-   
+        $showorhide =null;
+        if($this->userid == 0)
+        {
+            $showorhide = "show";
+        }else{
+            $showorhide = "hide";
+        }
+    	$this->assign('username',$this->username);
+        $this->assign('showorhide',$showorhide);
         return $this->fetch();
     }
 }

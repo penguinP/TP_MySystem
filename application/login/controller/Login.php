@@ -6,7 +6,15 @@ class Login	extends controller
 {
     public function index()
     {
-        return $this->fetch();
+		
+		if(session('?user'))
+		{
+			
+			$this->redirect('admin/index/index',302);
+		}else{
+			
+			return $this->fetch();
+		}
     }
 	//ppeng 2019.6.2 登陆
 	public function login()
@@ -39,8 +47,7 @@ class Login	extends controller
 	}
 
 	public function quit(){
-
-		unset($_SESSION);
+		session(null);
 		$this->redirect('login/login/index',302);
 	}
 
