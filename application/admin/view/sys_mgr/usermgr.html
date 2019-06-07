@@ -48,11 +48,11 @@
 			page:true,
 			cols:[[
 				{field:'id',title:'ID',hide:true},
-				{field:'name',title:'姓名',minWidth:80,width:'10%'},
+				{field:'username',title:'姓名',minWidth:80,width:'10%'},
 				{field:'explan',title:'说明',minWidth:200,width:'20%'},
 				{field:'ip',title:'最后登录IP',width:'20%'},
-				{field:'login_time',title:'最后登录时间',width:'20%'},
-				{field:'key',title:'用户唯一密钥',width:'20%'},
+				{field:'time',title:'最后登录时间',width:'20%'},
+				{field:'userkey',title:'用户唯一密钥',width:'20%'},
                 {field:'',toolbar:'#toolbar'}
 			]]
          });
@@ -68,19 +68,36 @@
                     layer.open({
                         type:2,
                         title:"添加",
-                        area:['700px','400px'],
-                        content:''
+                        area:['50%','400px'],
+                        content:'/admin/sys_mgr/adduser'
                     });    
                  }
                  break;
-                 case "update":
-                 console.log("update");
-                 break;
-                 case "delete":
-                 console.log("delete");
-                 break;
+                 
              };
          });
+		 
+		table.on('tool(lay_usermgr)',function(obj){
+		
+			console.log(obj.data.id);
+			switch(obj.event)
+			{
+				 case "update":
+				 {
+                
+                    layer.open({
+                        type:2,
+                        title:"编辑",
+                        area:['50%','400px'],
+                        content:'/admin/sys_mgr/updateuser/id/'+obj.data.id
+                    });    
+                 }
+                 break;
+                 case "delete":
+					console.log("delete");
+                 break;
+			};
+		});
      </script>
 	 
 </body>
