@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 本机
  Source Server Type    : MySQL
  Source Server Version : 50714
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50714
  File Encoding         : 65001
 
- Date: 07/06/2019 18:10:18
+ Date: 08/06/2019 20:07:11
 */
 
 SET NAMES utf8mb4;
@@ -30,14 +30,14 @@ CREATE TABLE `db_admin_user`  (
   `last_login_time` int(11) NOT NULL COMMENT '最后一次登陆时间',
   `user_out_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '外部id识别',
   PRIMARY KEY (`id`, `user_name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of db_admin_user
 -- ----------------------------
-INSERT INTO `db_admin_user` VALUES (0, 'admin', 'd6bf4bb9a66419380a7e8b034270d381', '超级管理员', '127.0.0.1', 1559830565, '');
-INSERT INTO `db_admin_user` VALUES (1, 'user1', 'd6bf4bb9a66419380a7e8b034270d381', '用户1', '127.0.0.1', 1559830565, '');
-INSERT INTO `db_admin_user` VALUES (2, 'user2', 'ff2001672ff4059ef3d5bdddce73967d', '用户2', '127.0.0.1', 1559898879, '7e58d63b60197ceb55a1c487989a3720');
+INSERT INTO `db_admin_user` VALUES (0, 'admin', 'd6bf4bb9a66419380a7e8b034270d381', '超级管理员', '127.0.0.1', 1559912074, '');
+INSERT INTO `db_admin_user` VALUES (1, 'user1', 'd6bf4bb9a66419380a7e8b034270d381', '用户11', '127.0.0.1', 1559830565, '');
+INSERT INTO `db_admin_user` VALUES (2, 'user2', 'ff2001672ff4059ef3d5bdddce73967d', '用户2', '127.0.0.1', 1559991731, '7e58d63b60197ceb55a1c487989a3720');
 INSERT INTO `db_admin_user` VALUES (3, 'user3', 'c52c454d21faca98185f7d146f512eff', '用户3', '127.0.0.1', 1559899258, '92877af70a45fd6a2ed7fe81e1236b78');
 
 -- ----------------------------
@@ -56,11 +56,12 @@ CREATE TABLE `db_customer`  (
   `sub_time` int(11) NOT NULL COMMENT '提交时间',
   `customer_state` tinyint(12) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of db_customer
 -- ----------------------------
 INSERT INTO `db_customer` VALUES (1, '王测试', '18888888888', 'jfidf_wx', '192.168.1.1', 'www.baidu.com', '你好', '12323', 1559824125, 0);
+INSERT INTO `db_customer` VALUES (2, '测试', '18897889899', '', '127.0.0.1', 'http://localhost/web_page_list/bottommuen/lyjs/lyb/', '我有意向，请问加盟费多少?', '2', 1559995312, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

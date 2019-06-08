@@ -36,7 +36,7 @@
       </script>
       
      <script>
-         var table = layui.table,layer = layui.layer;
+         var table = layui.table,layer = layui.layer,$ = layui.$;
 
          var m_table = table.render({
              elem:'#usermgr_table',
@@ -50,9 +50,9 @@
 				{field:'id',title:'ID',hide:true},
 				{field:'username',title:'姓名',minWidth:80,width:'10%'},
 				{field:'explan',title:'说明',minWidth:200,width:'20%'},
-				{field:'ip',title:'最后登录IP',width:'20%'},
-				{field:'time',title:'最后登录时间',width:'20%'},
-				{field:'userkey',title:'用户唯一密钥',width:'20%'},
+				{field:'ip',title:'最后登录IP',width:'10%'},
+				{field:'time',title:'最后登录时间',width:'15%'},
+				{field:'userkey',title:'用户唯一密钥',width:'30%'},
                 {field:'',toolbar:'#toolbar'}
 			]]
          });
@@ -94,7 +94,19 @@
                  }
                  break;
                  case "delete":
-					console.log("delete");
+                 {
+                    layer.confirm('是否确定删除？',{btn:['确定','取消']},function(){
+                            $.post('/admin/sys_mgr/deluser',{id:obj.data.id},function(msg){
+                                layer.msg(msg.msg,function(){
+
+                                    if(msg.code == 0)
+                                    {
+                                        obj.tr.remove();
+                                    }
+                                })
+                            },'json');
+                    });
+                 }
                  break;
 			};
 		});

@@ -20,24 +20,24 @@
 	
 	<div class="layui-container">
 	<form class="layui-form" action="">
-		
+		<input type='hidden' name='id' value='{$id}'>
 		<div class="layui-form-item">
 			<label class="layui-form-label">用户名</label>
-			<input type="text" name="username" required  lay-verify="required"  autocomplete="off" class="layui-input">
+			<input type="text" value ="{$username}" name="username" required  lay-verify="required"  autocomplete="off" class="layui-input">
 		</div>
 		
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码</label>
-			<input type="password" name="password" required  lay-verify="required"  autocomplete="off" class="layui-input">
+			<input type="password" name="password"   autocomplete="off" class="layui-input">
 		</div>
 		
 		<div class="layui-form-item">
 			<label class="layui-form-label">备注</label>
-			<input type="text" name="remarks" required  lay-verify="required" autocomplete="off" class="layui-input">
+			<input type="text" value="{$remarks}" name="remarks" required  lay-verify="required" autocomplete="off" class="layui-input">
 		</div>
 		
 		<div class="layui-form-item" style="text-align:right;">
-			<button  class="layui-btn" lay-submit lay-filter="lay-submit-register" >注册</button>
+			<button  class="layui-btn" lay-submit lay-filter="lay-submit-register" >保存</button>
 			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 		</div>
 	</form>
@@ -49,11 +49,15 @@
 		
 		form.on('submit(lay-submit-register)',function(data){
 			console.log(data.field);
-			$.post('updateuser1',data.field,function(obj){
-				
-				layer.msg(obj.msg);
-			},'json');
-			
+			if(data.field.username != "{$username}" || data.field.remarks !="{$remarks}"||data.field.password !="")
+			{
+				$.post('/admin/sys_mgr/updateuser1',data.field,function(obj){
+					
+					layer.msg(obj.msg);
+				},'json');
+			}else{
+				layer.msg("请更改数据！");
+			}
 			
 			return false;
 		});

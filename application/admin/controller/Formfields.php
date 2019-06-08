@@ -19,9 +19,9 @@ class Formfields	extends Common
 		
 		if($admin_id != 0)
 		{
-			$where="user_id eq ".$admin_id;
+			$where['user_id'] = $admin_id;
 			//判断留言属性
-			$where.=" and customer_state eq 0";
+			$where['customer_state']=0;
 		}
 		$customer = db('db_customer')->where($where)->field("id,customer_name as name,customer_phone as phone,customer_wx as wx,customer_ip as ip,customer_url as url")->select();
 		//号码打*

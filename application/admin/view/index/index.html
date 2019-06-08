@@ -47,8 +47,8 @@
 			  <li class="layui-nav-item">
 				<a href="javascript:;">系统设置</a>
 				<dl class="layui-nav-child">
-				  <dd><a href="javascript:;"  class="laymy-menu amdin" data-href="/admin/sys_mgr/usermgr">用户管理</a></dd>
-				  <dd><a href="javascript:;" class="laymy-menu" >选项2</a></dd>
+				  <dd><a href="javascript:;"  class="laymy-menu con_amdin" data-href="/admin/sys_mgr/usermgr">用户管理</a></dd>
+				  <dd><a href="javascript:;" class="laymy-menu" data-href="/admin/sys_mgr/usermsg">个人信息</a></dd>
 				  <dd><a href="/login/login/quit">退出</a></dd>
 				</dl>
 			  </li>
@@ -79,7 +79,12 @@
 		
 			if("{$showorhide}" == "hide")
 				{
-					$('#admin').hide();
+					
+					$('.con_amdin').hide();
+
+				}else if("{$showorhide}" == "show")
+				{
+					$('.con_amdin').show();
 				}
 		console.log("{$showorhide}");
 	 </script>

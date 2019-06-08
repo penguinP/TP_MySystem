@@ -33,7 +33,7 @@ class Login	extends controller
 				$login_time = time();
 				$login_ip = $this->getIp();
 				
-				$db_save = db('db_admin_user')->update(['id'=>$db_user['id'],'last_login_ip'=>$login_ip,'last_login_time'=>$login_time]);
+				$db_save = db('db_admin_user')->where('id',$db_user['id'])->update(['last_login_ip'=>$login_ip,'last_login_time'=>$login_time]);
 				if(!isset($db_save))
 				{
 					return json_encode(['type'=>2,'msg'=>'数据更新错误！']);
@@ -41,7 +41,7 @@ class Login	extends controller
 				return json_encode(['type'=>0,'msg'=>'登陆成功']);
 			}
 		}
-		
+		dump($input);die();
 		return json_encode(['type'=>1,'msg'=>'帐号或密码错误！']);
 		
 	}
