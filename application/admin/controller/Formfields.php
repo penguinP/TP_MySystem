@@ -23,7 +23,7 @@ class Formfields	extends Common
 			//判断留言属性
 			$where['customer_state']=0;
 		}
-		$customer = db('db_customer')->where($where)->field("id,customer_name as name,customer_phone as phone,customer_wx as wx,customer_ip as ip,customer_url as url")->select();
+		$customer = db('db_customer')->where($where)->field("id,customer_name as name,customer_phone as phone,customer_wx as wx,customer_content as content,customer_ip as ip,customer_url as url,sub_time as time")->select();
 		//号码打*
 		if($admin_id == 0)
 		{
@@ -36,6 +36,11 @@ class Formfields	extends Common
 			}
 		}
 		
+		//时间戳转换
+		foreach($customer as $key=>$value)
+		{
+			$customer[$key]['time'] = date('Y-m-d H:i:s',$value['time']);
+		}
 	
 		$re_data['code'] = 0;
 		$re_data['msg'] = '';
