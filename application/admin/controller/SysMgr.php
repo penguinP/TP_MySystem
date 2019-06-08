@@ -152,7 +152,7 @@ class SysMgr	extends Common
 			$interface = "管理员，无留言接口！";
 		}else{
 
-			$interface = input('server.HTTP_HOST').'/usinterface/api/message/key/'.session('user')['user_out_id'];
+			$interface = 'http://'.input('server.HTTP_HOST').'/usinterface/api/message/key/'.session('user')['user_out_id'];
 		}
 		$this->assign('username',$this->username);
 		$this->assign('interface',$interface);
