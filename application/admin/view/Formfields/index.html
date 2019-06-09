@@ -41,17 +41,21 @@
 			elem:'#formfields_table',
 			
 			height:"full-40",
-			
+			limit:10,
+			page: true,
 			url:'/admin/formfields/getform',
 			method:'post',
 			page:true,
 			cols:[[
-				{field:'id',title:'ID',width:'5%'},
+				{field:'id',title:'ID',width:'5%',hide:true},
+				{if $is_show}
+				{field:'username',title:'所属用户',width:'10%'},
+				{/if}
 				{field:'time',title:'时间',width:'11%'},
 				{field:'name',title:'姓名',width:'8%'},
 				{field:'phone',title:'电话',width:'12%',sort:true},
 				{field:'wx',title:'微信/QQ',width:'8%'},
-				{field:'content',title:'留言内容',width:"20%"},
+				{field:'content',title:'留言内容',width:"15%"},
 				{field:'ip',title:'IP地址',width:'10%'},
 				{field:'url',title:'访问url',width:"20%"},
 				{field:'',toolbar:'#toolbar'}

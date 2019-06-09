@@ -28,7 +28,13 @@
             <span class="layui-nav-more"></span></a>
             <dl class="layui-nav-child layui-anim layui-anim-upbit">
               
-              <dd class="layui-this"><a lay-href="">修改密码</a></dd>
+              <dd class="layui-this"><a href="javascript:;" onclick="
+								layer.open({
+									type:2,
+									title:'添加',
+									area:['50%','400px'],
+									content:'/admin/index/w_updatepw'
+								});  ">修改密码</a></dd>
               <hr>
               <dd layadmin-event="logout" style="text-align: center;"><a href="/login/login/quit">退出</a></dd>
             </dl>

@@ -7,6 +7,13 @@ class Formfields	extends Common
 
     public function index()
     {
+		$is_show= true;
+		if($this->userid !=0)
+		{
+			$is_show = false;
+		}
+
+		$this->assign('is_show',$is_show);
 		   
         return $this->fetch();
     }
@@ -16,38 +23,60 @@ class Formfields	extends Common
 		$admin_id = $this->userid;
 		$where = null;
 		$re_data = null;
+		$input = $this->request->param();
 		
+
+		$limit = $input['limit'];
+
 		if($admin_id != 0)
 		{
+			
 			$where['user_id'] = $admin_id;
 			//判断留言属性
 			$where['customer_state']=0;
 		}
-		$customer = db('db_customer')->where($where)->field("id,customer_name as name,customer_phone as phone,customer_wx as wx,customer_content as content,customer_ip as ip,customer_url as url,sub_time as time")->select();
-		//号码打*
+		$customer = db('db_customer')
+					->where($where)
+					->alias('c')
+					->field("c.id,c.customer_name as name,c.customer_phone as phone,c.customer_wx as wx,c.customer_content as content,c.customer_ip as ip,c.customer_url as url,c.sub_time as time,c.user_id as userid")
+					->order('sub_time desc')
+					->paginate($limit);
+		//号码打*,数据所属用户名
+		$ary_data = $customer->toArray();
+		
 		if($admin_id == 0)
 		{
-			foreach($customer as $key=>$value)
+			$ary_username = db('db_admin_user')->where('id','neq',0)->column('id,user_name');
+			foreach($ary_data['data'] as $key=>$value)
 			{
+				
+				if(isset($ary_username[$value['userid']]))
+				{	
+					$ary_data['data'][$key]['username'] = $ary_username[$value['userid']];
+				}else
+				{
+					$ary_data['data'][$key]['username'] = '未知用户';
+				}
+				
 				for($i=3;$i<7;$i++)
 				{
-					$customer[$key]['phone'][$i] = "*";
+					$ary_data['data'][$key]['phone'][$i] = "*";
 				}
 			}
 		}
-		
+	
 		//时间戳转换
-		foreach($customer as $key=>$value)
+		foreach($ary_data['data'] as $key=>$value)
 		{
-			$customer[$key]['time'] = date('Y-m-d H:i:s',$value['time']);
+			$ary_data['data'][$key]['time'] = date('Y-m-d H:i:s',$value['time']);
 		}
 	
 		$re_data['code'] = 0;
 		$re_data['msg'] = '';
 		
-		$re_data['count'] = count($customer);
+		$re_data['count'] = $ary_data['total'];
 		
-		$re_data['data'] = $customer;
+		$re_data['data'] = $ary_data['data'];
 		
 		return json($re_data);
 		

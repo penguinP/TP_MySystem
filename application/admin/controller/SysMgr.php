@@ -26,21 +26,23 @@ class SysMgr	extends Common
 			$this->error("无权限！","/admin/");
 		}
 		$re_data = null;
+		$input = $this->request->param();
+		$limit = $input['limit'];
+		$user_list = db('db_admin_user')->where('id','neq',0)->field("id,user_name as username,explan,last_login_ip as ip,last_login_time as time,user_out_id as userkey")->paginate($limit);
 		
-		$user_list = db('db_admin_user')->where('id','neq',0)->field("id,user_name as username,explan,last_login_ip as ip,last_login_time as time,user_out_id as userkey")->select();
-		
+		$user_data = $user_list->toArray();
 		//时间戳转换
-		foreach($user_list as $key=>$value)
+		foreach($user_data['data'] as $key=>$value)
 		{
-			$user_list[$key]['time'] = date('Y-m-d H:i:s',$value['time']);
+			$user_data['data'][$key]['time'] = date('Y-m-d H:i:s',$value['time']);
 		}
 		
 		$re_data['code'] = 0;
 		$re_data['msg'] = '';
 		
-		$re_data['count'] = count($user_list);
+		$re_data['count'] = $user_data['total'];
 		
-		$re_data['data'] = $user_list;
+		$re_data['data'] = $user_data['data'];
 		
         return json($re_data);
     }
