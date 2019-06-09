@@ -12,18 +12,27 @@ class Api extends controller
 	public function message()
 	{
 		header('Access-Control-Allow-Origin:*');
+		header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');
+		header('Access-Control-Allow-Methods: GET, PUT, POST');
+		
         $user_key = request()->param('key');
         $data = null;
         //判断是否有这个key存在
         $input = $_POST;
         
         $code_list = array(["code"=>0,"msg"=>"提交成功！"],["code"=>1,"msg"=>"提交失败，请检查输入内容！"],["code"=>2,"msg"=>"提交失败，请检查接口！"]);
-        
+       
         if(empty($input) || empty($user_key))
         {
-            return json_encode($code_list[2]);
+            return json($code_list[2]);
         }
-        
+        //判断电话格式
+		
+		if(@!ereg("^[1][3-8][0-9]{9}$",$input['phone'])){
+           
+            return json($code_list[1]);
+        }
+		
         //判断传入的数据是否有下列字段
         $ary = array('name','phone','qq','url','content');
 
@@ -31,7 +40,7 @@ class Api extends controller
         {
             if(!array_key_exists($ary[$i],$input))
             {
-                return $code_list[2];
+                return json($code_list[2]);
             }
         }
         $data['customer_name'] = $input['name'];
@@ -55,10 +64,10 @@ class Api extends controller
         $save_msg = db('db_customer')->insert($data);
         if(!$save_msg)
         {
-            return $code_list[2];
+            return json($code_list[2]);
         }
         
-        return json_encode($code_list[0]);
+        return json($code_list[0]);
     }
     
     public function getIp() {

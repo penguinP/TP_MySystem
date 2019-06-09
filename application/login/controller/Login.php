@@ -41,7 +41,7 @@ class Login	extends controller
 				return json_encode(['type'=>0,'msg'=>'登陆成功']);
 			}
 		}
-		dump($input);die();
+		
 		return json_encode(['type'=>1,'msg'=>'帐号或密码错误！']);
 		
 	}

@@ -63,14 +63,14 @@ class Formfields	extends Common
 		{
 			if($user_id == 0)
 			{
-				$db_re = db('db_customer')->where("id eq ".$data['id'])->delete();
+				$db_re = db('db_customer')->where("id","eq",$data['id'])->delete();
 				if(!isset($db_re))
 				{
 					$re_code = $code_list[2];
 				}
 			}else
 			{
-				$db_re = db('db_customer')->where("id eq ".$date['id'])->setField("customer_state",0);
+				$db_re = db('db_customer')->where("id","eq",$data['id'])->setField("customer_state",1);
 				if(!isset($db_re))
 				{
 					$re_code = $code_list[2];
