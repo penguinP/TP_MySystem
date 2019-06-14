@@ -47,7 +47,8 @@
 			method:'post',
 			page:true,
 			cols:[[
-				{field:'id',title:'ID',width:'5%',hide:true},
+				{field:'id',title:'ID',hide:true},
+				{field:'state',title:'STATE',hide:true},
 				{if $is_show}
 				{field:'username',title:'所属用户',width:'10%'},
 				{/if}
@@ -59,11 +60,38 @@
 				{field:'ip',title:'IP地址',width:'10%'},
 				{field:'url',title:'访问url',width:"20%"},
 				{field:'',toolbar:'#toolbar'}
-			]]
+			]],
+			done:function(){
+				var trArr = $("[lay-id ='formfields_table'] .layui-table-body tr");//行数据
+				
+				$.each(trArr,function(index,trObj){
+					
+					var cellArr = trObj.cells;
+					var is_del = false;
+					$.each(cellArr,function(key,obj){
+						if($(obj).data('field') == 'state')
+						{
+							
+							if($(obj).text() == 0)
+							{
+								is_del = true;
+							}
+							
+						}
+						
+					});
+					if(is_del)
+					{
+						$(this).css("background-color","#ec8a8a");
+					}
+					
+				})
+				
+			}
 		
 		});
 		
-		console.log(form_table);
+	
 
 		table.on('tool(lay_formfields)',function(obj){
 			var data = obj.data;

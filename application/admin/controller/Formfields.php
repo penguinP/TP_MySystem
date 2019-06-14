@@ -38,7 +38,7 @@ class Formfields	extends Common
 		$customer = db('db_customer')
 					->where($where)
 					->alias('c')
-					->field("c.id,c.customer_name as name,c.customer_phone as phone,c.customer_wx as wx,c.customer_content as content,c.customer_ip as ip,c.customer_url as url,c.sub_time as time,c.user_id as userid")
+					->field("c.id,c.customer_name as name,c.customer_phone as phone,c.customer_wx as wx,c.customer_content as content,c.customer_ip as ip,c.customer_url as url,c.sub_time as time,c.user_id as userid,c.customer_state as state")
 					->order('sub_time desc')
 					->paginate($limit);
 		//号码打*,数据所属用户名
