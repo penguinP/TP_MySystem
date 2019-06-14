@@ -12,7 +12,10 @@ class Formfields	extends Common
 		{
 			$is_show = false;
 		}
-
+		//传用户列表
+		$uesr_list = db('db_admin_user')->where('id','neq',0)->field("id,user_name as name")->select();
+		
+		$this->assign('userlist',$uesr_list);
 		$this->assign('is_show',$is_show);
 		   
         return $this->fetch();
@@ -25,15 +28,37 @@ class Formfields	extends Common
 		$re_data = null;
 		$input = $this->request->param();
 		
-
 		$limit = $input['limit'];
-
+		$starttime = null;
+		$endtime = null;
+		$userid = null;
+		//筛选条件
+		if(isset($input['starttime'])&&!empty($input['starttime']))
+		{
+			$starttime = strtotime($input['starttime']);
+		}
+		if(isset($input['endtime'])&&!empty($input['endtime']))
+		{
+			$endtime = strtotime($input['endtime']);
+		}
+		if(isset($input['seluserid'])&&!empty($input['seluserid']))
+		{
+			$userid = $input['seluserid'];
+		}
+		
+		if(!empty($starttime) && !empty($endtime))
+		{
+			if($endtime<=$starttime){
+                    return json(['msg'=>0,'code'=>0,'count'=>0,'data'=>array()]);
+			}
+		}
+		
 		if($admin_id != 0)
 		{
 			
-			$where['user_id'] = $admin_id;
+			$where .= " user_id = ".$admin_id;
 			//判断留言属性
-			$where['customer_state']=0;
+			$where.=" and customer_state=0";
 		}
 		$customer = db('db_customer')
 					->where($where)

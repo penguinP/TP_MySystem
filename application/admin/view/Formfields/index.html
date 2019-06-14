@@ -18,9 +18,32 @@
 
     </head>
     <body>
-		
+		<div class="layui-container">
+			<div class="layui-inline">
+				<input class="layui-input" type="text" id="starttime" placeholder="起始时间">
+			</div>
+			<div class="layui-inline">
+				<input class="layui-input" type="text" id="endtime" placeholder="截止时间">
+			</div>
+			{if $is_show}
+			<div class="layui-inline">
+				<select class="layui-select laymy-w2" id="sel_user">
+					
+					<option value="">选择用户</option>
+					{if isset($userlist)}
+					{foreach $userlist as $value}
+					<option value="{$value.id}">{$value.name}</option>
+					{/foreach}
+					{/if}
+				</select>
+			</div>
+			{/if}
+			<div class="layui-inline">
+				<button class="layui-btn layui-btn-sm laymy-w1" id="search">搜索</button>
+			</div>
+		</div>
 		<table id="formfields_table" lay-filter="lay_formfields"></table>
-        
+       
    
 	 <script src="/static/layui/layui.all.js" ></script>
 
@@ -34,14 +57,14 @@
 
 	 <script>
 	 
-		var table = layui.table,layer = layui.layer,$=layui.$;
+		var table = layui.table,layer = layui.layer,$=layui.$,laydate = layui.laydate;
 		
 		var form_table = table.render({
 		
 			elem:'#formfields_table',
 			
 			height:"full-40",
-			limit:10,
+			limit:20,
 			page: true,
 			url:'/admin/formfields/getform',
 			method:'post',
@@ -72,7 +95,7 @@
 						if($(obj).data('field') == 'state')
 						{
 							
-							if($(obj).text() == 0)
+							if($(obj).text() == 1)
 							{
 								is_del = true;
 							}
@@ -117,6 +140,33 @@
 			}
 			console.log(obj);
 
+		});
+		
+		laydate.render({
+			elem:'#starttime'
+		});
+		laydate.render({
+			elem:'#endtime'
+		});
+		
+		$("#search").click(function(){
+			var starttime = $("#starttime").val()||"";
+			var endtime = $("#endtime").val()||"";
+			var seluser = $('#sel_user').val()||"";
+			
+			console.log(starttime);
+			console.log(endtime);
+			console.log(seluser);
+			
+			form_table.reload({	//重载表格
+				where:{
+					starttime:starttime,
+					endtime:endtime,
+					seluserid:seluser
+				}
+			});
+			
+			
 		});
 	 </script>
 	 </body>
