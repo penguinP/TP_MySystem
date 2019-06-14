@@ -31,7 +31,7 @@ class Formfields	extends Common
 		$limit = $input['limit'];
 		$starttime = null;
 		$endtime = null;
-		$userid = null;
+		$seluserid = null;
 		//筛选条件
 		if(isset($input['starttime'])&&!empty($input['starttime']))
 		{
@@ -43,23 +43,47 @@ class Formfields	extends Common
 		}
 		if(isset($input['seluserid'])&&!empty($input['seluserid']))
 		{
-			$userid = $input['seluserid'];
+			$seluserid = $input['seluserid'];
 		}
-		
+		//时间条件
 		if(!empty($starttime) && !empty($endtime))
 		{
 			if($endtime<=$starttime){
                     return json(['msg'=>0,'code'=>0,'count'=>0,'data'=>array()]);
 			}
+			$where.=" and sub_time>=".$starttime." and sub_time<=".$endtime." ";
+		}else{
+			if(!empty($starttime))
+			{
+				$where.=" and sub_time>=".$starttime." ";
+			}
+			if(!empty($endtime))
+			{
+				$where.=" and sub_time<=".$endtime." ";
+			}
+		
+		}
+		//用户选择条件
+		if(!empty($seluserid))
+		{
+			$where.=" and user_id=".$seluserid." ";
 		}
 		
 		if($admin_id != 0)
 		{
 			
-			$where .= " user_id = ".$admin_id;
+			$where .= " and user_id = ".$admin_id." ";
 			//判断留言属性
-			$where.=" and customer_state=0";
+			$where.=" and customer_state=0 ";
 		}
+		
+		//字符串trim
+		if($where)
+		{
+			$where=trim($where);
+            $where=trim($where,'and');
+		}
+		
 		$customer = db('db_customer')
 					->where($where)
 					->alias('c')
