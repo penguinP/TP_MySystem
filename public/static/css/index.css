@@ -1,6 +1,13 @@
+.layui-layout-admin .layui-side{
+
+    width:120px;
+}
+.layui-layout-admin .layui-side .layui-nav-tree{
+    width:100%;
+}
 .layui-layout-admin .layui-side .layui-logo
 {
-	    position: fixed;
+	position: fixed;
     left: 0;
     top: 0;
     z-index: 1002;
@@ -15,6 +22,9 @@
 }
 .layui-layout-admin .layui-header{
 	z-index:999;
+}
+.layui-body{
+    left:120px;
 }
 .laymy-iframe{
 	width:100%;

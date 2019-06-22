@@ -26,13 +26,7 @@ class Api extends controller
         {
             return json($code_list[2]);
         }
-        //判断电话格式
-		
-		if(@!ereg("^[1][3-8][0-9]{9}$",$input['phone'])){
-           
-            return json($code_list[1]);
-        }
-		
+    
         //判断传入的数据是否有下列字段
         $ary = array('name','phone','qq','url','content');
 
@@ -43,11 +37,29 @@ class Api extends controller
                 return json($code_list[2]);
             }
         }
+
+        //判断电话格式
+		
+		if(@!ereg("^[1][3-8][0-9]{9}$",$input['phone'])){
+           
+            return json($code_list[1]);
+        }
+
+        //  加关键词
+        $data['customer_kw'] = '-';
+        if(isset($input['s_url']))
+        {
+            $keyword = getKeyword($input['s_url']);
+            
+            if($keyword!=null)
+                $data['customer_kw'] = $keyword['search'].'('.$keyword['keyword'].')';
+        }
+         
         $data['customer_name'] = $input['name'];
         $data['customer_phone'] = $input['phone'];
         $data['customer_wx'] = $input['qq'];
         $data['customer_url'] = $input['url'];
-        $data['customer_ip'] = $this->getIp();
+        $data['customer_ip'] = getIp();
         $data['customer_content'] = $input['content'];
         $data['sub_time'] = time();
         $data['customer_state'] = 0;
@@ -70,18 +82,9 @@ class Api extends controller
         return json($code_list[0]);
     }
     
-    public function getIp() {
-		//strcasecmp 比较两个字符，不区分大小写。返回0，>0，<0。
-		if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
-			$ip = getenv('HTTP_CLIENT_IP');
-		} elseif(getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown')) {
-			$ip = getenv('HTTP_X_FORWARDED_FOR');
-		} elseif(getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown')) {
-			$ip = getenv('REMOTE_ADDR');
-		} elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
-			$ip = $_SERVER['REMOTE_ADDR'];
-		}
-		$res =  preg_match ( '/[\d\.]{7,15}/', $ip, $matches ) ? $matches [0] : '';
-		return $res;
-	}
+    public function test(){
+        $url = "https://m.so.com/index.php?ie=utf-8&fr=none&src=home-sug-store&q=%E5%A5%B6%E8%8C%B6%E5%8A%A0%E7%9B%9F";
+
+       return json($_COOKIE);
+    }
 }
